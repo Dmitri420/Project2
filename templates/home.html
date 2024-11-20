@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Future Gaming Site</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='mystyle.css') }}">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ url_for('home') }}">Future Gaming</a>
+        <ul class="navbar-nav ml-auto">
+            {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <header>
+        <h1 class="text-center">Welcome to the Future of Gaming</h1>
+    </header>
+
+    <div class="container mt-4">
+        <div class="row">
+            {% for game in video_games %}
+            <div class="col-md-3">
+                <a href="{{ url_for('game_page', game_id=game.id) }}">
+                    <img src="{{ url_for('static', filename=game.poster_url) }}" class="img-fluid" alt="{{ game.title }}">
+                </a>
+                <h5 class="mt-2">{{ game.title }}</h5>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Future Gaming Site | <a href="#">Privacy Policy</a></p>
+    </footer>
+</body>
+</html>
+

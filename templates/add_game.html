@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Video Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='mystyle.css') }}">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Add a New Video Game</h1>
+        <form method="POST" action="/add-game">
+            <div class="form-group">
+                <label for="title">Game Title</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="poster_url">Poster URL (relative path to static folder)</label>
+                <input type="text" class="form-control" id="poster_url" name="poster_url" required>
+            </div>
+            <div class="form-group">
+                <label for="developer">Developer</label>
+                <input type="text" class="form-control" id="developer" name="developer" required>
+            </div>
+            <div class="form-group">
+                <label for="platforms">Platforms</label>
+                <input type="text" class="form-control" id="platforms" name="platforms" required>
+            </div>
+            <div class="form-group">
+                <label for="year">Year of Release</label>
+                <input type="number" class="form-control" id="year" name="year" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Game</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Futuristic Gaming Site | <a href="#">Privacy Policy</a></p>
+    </footer>
+</body>
+</html>

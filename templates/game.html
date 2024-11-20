@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ video_game.title }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='mystyle.css') }}">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ url_for('home') }}">Future Gaming</a>
+        <ul class="navbar-nav ml-auto">
+            {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <!-- Game Details -->
+    <div class="container mt-4">
+        <h1>{{ video_game.title }}</h1>
+        <img src="{{ url_for('static', filename=video_game.poster_url) }}" class="img-fluid mb-4" alt="{{ video_game.title }}">
+        <p>{{ video_game.description }}</p>
+        <ul>
+            <li><strong>Developer:</strong> {{ video_game.developer }}</li>
+            <li><strong>Platforms:</strong> {{ video_game.platforms }}</li>
+            <li><strong>Year of Release:</strong> {{ video_game.year }}</li>
+        </ul>
+        <a href="{{ url_for('home') }}" class="btn btn-primary mt-4">Back to Games</a>
+    </div>
+
+    <!-- Reviews Section -->
+    <h3>Reviews:</h3>
+    {% for review in reviews %}
+        <div>
+            <strong>{{ review.user.username }}:</strong>
+            <p>{{ review.content }}</p>
+        </div>
+    {% endfor %}
+
+    <!-- Review Form for Authenticated Users -->
+    {% if current_user.is_authenticated %}
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.content.label }}
+                {{ form.content(class="form-control") }}
+            </div>
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    {% else %}
+        <p><a href="{{ url_for('login') }}">Log in</a> to post a review.</p>
+    {% endif %}
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Future Gaming Site | <a href="#">Privacy Policy</a></p>
+    </footer>
+
+</body>
+</html>
